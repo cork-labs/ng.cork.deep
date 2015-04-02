@@ -1,0 +1,18 @@
+@ngdoc overview
+@name API Reference
+@description
+
+# ng.cork.deep API Reference
+
+> Welcome to the **ng.cork.deep** API reference.
+
+If you want to know how **ng.cork.deep** works, checkout the {@link guide/ guide} and the {@link demos/ demos}.
+
+
+## Modules
+
+- **[ng.cork.deep](#/api/ng.cork.deep)** - Main module, requires all other modules.
+  - **[ng.cork.deep](#/api/ng.cork.deep.extend)** - Provides a function that deep extends one object with another.
+  - **[ng.cork.deep](#/api/ng.cork.deep.obj)** - Provides a base class with deep get/set/delete methods.
+  - **[ng.cork.deep](#/api/ng.cork.deep.path)** - Provides a service to get/set/delete object properties by path.
+
