@@ -22,18 +22,18 @@ angular.module('app', ['ng.cork.deep.path']);
 
 ## Service: [corkDeepPath](#/api/ng.cork.deep.path.corkDeepPath)
 
-> Defaults one object with properties from another.
+> Modify deep properties of an object.
 
 <pre>
 angular.module('app', ['ng.cork.deep.path'])
 .controller('myController', [
     'corkDeepPath',
     function (corkDeepPath) {
-        var obj: {
+
+        var obj = {
             foo: {
                 bar: 'baz'
-            },
-            baz: [101]
+            }
         };
 
         corkDeepPath.get(obj, 'foo.bar'); // 'baz'

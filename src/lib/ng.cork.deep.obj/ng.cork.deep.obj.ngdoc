@@ -6,7 +6,7 @@
 
 # Dependencies
 
-- None.
+- **[ng.cork.deep.path](#/api/ng.cork.deep.path)** - Provides a service to get/set/delete object properties by path.
 
 
 # Usage
@@ -27,24 +27,25 @@ angular.module('app', ['ng.cork.deep.obj']);
 <pre>
 angular.module('app', ['ng.cork.deep.obj'])
 .controller('myController', [
-    'corkDeepPath',
-    function (corkDeepPath) {
-        var obj: {
+    'CorkDeepObj',
+    function (CorkDeepObj) {
+
+        var obj = new CorkDeepObj({
             foo: {
                 bar: 'baz'
             },
             baz: [101]
-        };
+        });
 
-        corkDeepPath.get(obj, 'foo.bar'); // 'baz'
-        corkDeepPath.get(obj, 'foo.foo'); // Error()
-        corkDeepPath.get(obj, 'foo.foo', 'default value'); // 'default value'
+        obj.get('foo.bar'); // 'baz'
+        obj.get('foo.foo'); // Error()
+        obj.get('foo.foo', 'default value'); //  obj.foo.foo = 'default value'
 
-        corkDeepPath.set(obj, 'foo.bar', 'replaced'); // obj.foo.bar = 'replaced'
-        corkDeepPath.set(obj, 'foo.qux', 'new value'); // obj.foo.qux = 'new value'
-        corkDeepPath.set(obj, 'abc.def', 'new property'); // obj.abc.def = 'new property'
+        obj.set('foo.bar', 'replaced'); // obj.foo.bar = 'replaced'
+        obj.set('foo.qux', 'new value'); // obj.foo.qux = 'new value'
+        obj.set('abc.def', 'new property'); // obj.abc.def = 'new property'
 
-        corkDeepPath.del(obj, 'foo'); // obj.foo = undefined, obj = {baz: [101]}
+        obj.del('foo'); // obj.foo = undefined, obj = {baz: [101]}
     }
 ])
 </pre>

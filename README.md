@@ -20,10 +20,9 @@ Include the following JS files in your build:
 - `dist/ng.cork.deep.js` OR `dist/ng.cork.deep.min.js`
 
 Alternatively, include only the files you are going to use:
-- `dist/lib/ng.cork.deep.defaults.js`
 - `dist/lib/ng.cork.deep.extend.js``
-- `dist/lib/ng.cork.deep.get-set.js`
 - `dist/lib/ng.cork.deep.obj.js`
+- `dist/lib/ng.cork.deep.path.js`
 
 
 

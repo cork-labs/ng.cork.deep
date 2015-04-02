@@ -5,12 +5,15 @@
 
     var copy = angular.copy;
 
+    var isString = angular.isString;
+    var isUndefined = angular.isUndefined;
+
     /**
      * @ngdoc service
      * @name ng.cork.deep.path.corkDeepPath
      *
      * @description
-     * Provides an extension function
+     * Service to get/set/delete object properties by path.
      */
     module.service('corkDeepPath', [
 
@@ -25,7 +28,38 @@
                  * @methodOf ng.cork.deep.path.corkDeepPath
                  *
                  * @description
-                 * Deep get an object property by supplying the property path. If the path is undefined throws an Error unless you provide a default.
+                 * Deep get an object property by supplying the property path.
+                 *
+                 * Given the object:
+                 *
+                 * <pre>
+                 * var obj = {
+                 *     foo: {
+                 *         bar: 'baz'
+                 *     }
+                 * };
+                 * </pre>
+                 *
+                 * Supply a path in dot notation to retrieve a value:
+                 *
+                 * <pre>corkDeepPath.get(obj, 'foo.bar'); // 'baz'</pre>
+                 *
+                 * If the object does not have the requested property, it throws an Error.
+                 *
+                 * <pre>
+                 * corkDeepPath.get(obj, 'foo.foo'); // Error: Path "foo.bar" is not defined.
+                 * </pre>
+                 *
+                 * Supply a default value (something different from `undefined`) to suppress the error.
+                 *
+                 * You will get the default back if the object does not have the requested property.
+                 *
+                 * <pre>
+                 * corkDeepPath.get(obj, 'foo.foo', 'default value'); // 'default value'
+                 * </pre>
+                 *
+                 * *NOTE:* The retrieved value is a copy of the data held by the provided `obj`. Therefore, modifying the return
+                 * value of `corkDeepPath.get(obj, ...)` will not modify the object itself (and vice-versa).
                  *
                  * @param {object} obj The object to read from.
                  * @param {string} path The property path to read from, in dot notation. ex: `foo.bar.baz`
@@ -38,7 +72,7 @@
                     var key;
                     var args;
 
-                    if (angular.isUndefined(path) || angular.isString(path)) {
+                    if (isUndefined(path) || isString(path)) {
                         parts = path ? path.split('.') : [];
                         while (parts.length && value) {
                             key = parts.shift();
@@ -46,7 +80,7 @@
                                 value = value[key];
                             } else {
                                 // the whole path is consumed and a defaultValue was provided
-                                if (!parts.length && arguments.length > 2) {
+                                if (!parts.length && defaultValue !== undefined) {
                                     return defaultValue;
                                 } else {
                                     throw new Error('Path "' + path + '" is not defined.');
@@ -66,7 +100,14 @@
                  * @methodOf ng.cork.deep.path.corkDeepPath
                  *
                  * @description
-                 * Deep set the value of an object property by supplying the property path.
+                 * Deep set the value of an object property by supplying a property path and a new value.
+                 *
+                 * <pre>
+                 * corkDeepPath.set(obj, 'foo.qux', 'new value'); // obj.foo.qux = 'new value'
+                 * </pre>
+                 *
+                 * *NOTE:* The data stored in the object is a deep copy of the provided value. Therefore, modifying the `value` after
+                 * calling `corkDeepPath.set(obj, path, value)` will not modify the object itself (and vice-versa).
                  *
                  * @param {object} obj The object to write to.
                  * @param {string} path The property path to write to, in dot notation. ex: `foo.bar.baz`
@@ -77,7 +118,7 @@
                     var val = obj;
                     var key;
 
-                    if (angular.isString(path)) {
+                    if (isString(path)) {
                         parts = path.split('.');
                         while (parts.length > 1 && val) {
                             key = parts.shift();
@@ -102,11 +143,35 @@
                  * @description
                  * Deep delete an object property by supplying the property path.
                  *
+                 * <pre>
+                 * corkDeepPath.del(obj, 'foo'); // obj.foo = undefined, obj = {baz: [101]}
+                 * </pre>
+                 *
                  * @param {object} obj The object to write to.
                  * @param {string} path The property path to delete, in dot notation. ex: `foo.bar.baz`
                  */
                 self.del = function del(obj, path) {
+                    var parts;
+                    var value = obj;
+                    var key;
+                    var args;
 
+                    if (isString(path)) {
+                        parts = path ? path.split('.') : [];
+                        while (parts.length && value) {
+                            key = parts[0];
+                            if (parts.length === 1) {
+                                if (value.hasOwnProperty(key)) {
+                                    delete value[key];
+                                }
+                                return;
+                            }
+                            value = value[key];
+                            parts.shift();
+                        }
+                    } else {
+                        throw new Error('Invalid property path.');
+                    }
                 };
             };
 

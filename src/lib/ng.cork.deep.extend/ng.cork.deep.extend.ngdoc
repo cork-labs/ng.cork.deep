@@ -31,7 +31,7 @@ angular.module('app', ['ng.cork.deep.extend'])
     function (corkDeepExtend) {
 
         // object to extend
-        var destination: {
+        var destination = {
             foo: {
                 bar: 'baz'
             },
@@ -39,7 +39,7 @@ angular.module('app', ['ng.cork.deep.extend'])
         };
 
         // data to extend with
-        var source: {
+        var source = {
             foo: {
                 bar: 'foo',
                 qux: 'corge'

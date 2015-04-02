@@ -12,7 +12,7 @@ If you want to know how **ng.cork.deep** works, checkout the {@link guide/ guide
 ## Modules
 
 - **[ng.cork.deep](#/api/ng.cork.deep)** - Main module, requires all other modules.
-  - **[ng.cork.deep](#/api/ng.cork.deep.extend)** - Provides a function that deep extends one object with another.
-  - **[ng.cork.deep](#/api/ng.cork.deep.obj)** - Provides a base class with deep get/set/delete methods.
-  - **[ng.cork.deep](#/api/ng.cork.deep.path)** - Provides a service to get/set/delete object properties by path.
+  - **[ng.cork.deep.extend](#/api/ng.cork.deep.extend)** - Provides a function that deep extends one object with another.
+  - **[ng.cork.deep.obj](#/api/ng.cork.deep.obj)** - Provides a base class with deep get/set/delete methods.
+  - **[ng.cork.deep.path](#/api/ng.cork.deep.path)** - Provides a service to get/set/delete object properties by path.
 

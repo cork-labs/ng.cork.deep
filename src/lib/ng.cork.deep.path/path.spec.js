@@ -38,7 +38,7 @@ describe('ng.cork.deep.path', function () {
                 expect(corkDeepPath.get(obj, 'foo.bar')).toBe(42);
             }));
 
-            it('should clone the data before returning and modifying the data should not modifythe obj.', inject(function (corkDeepPath) {
+            it('should clone the data before returning it: modifying the data should NOT modify the object.', inject(function (corkDeepPath) {
 
                 var obj = {
                     foo: {
@@ -88,9 +88,6 @@ describe('ng.cork.deep.path', function () {
                     expect(corkDeepPath.get(obj, 'foo.bar.baz', 'default')).toBe('default');
                 }));
             });
-            // corkDeepPath.get(obj, 'foo.bar'); // 'baz'
-            // corkDeepPath.get(obj, 'foo.foo'); // Error()
-            // corkDeepPath.get(obj, 'foo.foo', 'default value'); // 'default value'
         });
 
         describe('set()', function () {
@@ -110,7 +107,7 @@ describe('ng.cork.deep.path', function () {
 
                 corkDeepPath.set(obj, 'foo.bar', 42);
 
-                expect(corkDeepPath.get(obj, 'foo.bar')).toBe(42);
+                expect(obj.foo.bar).toBe(42);
             }));
 
             it('should override existing objects with scalars.', inject(function (corkDeepPath) {
@@ -123,8 +120,7 @@ describe('ng.cork.deep.path', function () {
 
                 corkDeepPath.set(obj, 'foo', 42);
 
-                expect(corkDeepPath.get(obj, 'foo')).toBe(42);
-                expect(corkDeepPath.get(obj, 'foo.bar', 'empty')).toBe('empty');
+                expect(obj.foo).toBe(42);
             }));
 
             it('should override existing scalars with objects.', inject(function (corkDeepPath) {
@@ -135,10 +131,10 @@ describe('ng.cork.deep.path', function () {
 
                 corkDeepPath.set(obj, 'foo.bar', 42);
 
-                expect(corkDeepPath.get(obj, 'foo.bar')).toBe(42);
+                expect(obj.foo.bar).toBe(42);
             }));
 
-            it('should clone provided data and modifying it after set() should modify the object', inject(function (corkDeepPath) {
+            it('should clone provided data: modifying it after set() should NOT modify the object', inject(function (corkDeepPath) {
 
                 var obj = {};
                 var data = {
@@ -149,20 +145,37 @@ describe('ng.cork.deep.path', function () {
 
                 data.bar = 'qux';
 
-                expect(corkDeepPath.get(obj, 'foo.bar')).toBe('baz');
+                expect(obj.foo.bar).toBe('baz');
 
                 corkDeepPath.set(obj, 'foo.bar', 'quux');
 
                 expect(data.bar).toBe('qux');
             }));
-            // corkDeepPath.set(obj, 'foo.bar', 'replaced'); // obj.foo.bar = 'replaced'
-            // corkDeepPath.set(obj, 'foo.qux', 'new value'); // obj.foo.qux = 'new value'
-            // corkDeepPath.set(obj, 'abc.def', 'new property'); // obj.abc.def = 'new property'
         });
 
         describe('del()', function () {
 
-            // corkDeepPath.del(obj, 'foo'); // obj.foo = undefined, obj = {baz: [101]}
+            it('should throw an error if "path" argument is of an invalid type.', inject(function (corkDeepPath) {
+
+                expect(function () {
+                    corkDeepPath.del({}, []);
+                }).toThrow(new Error('Invalid property path.'));
+            }));
+
+            it('should delete the property from the obj.', inject(function (corkDeepPath) {
+
+                var obj = {
+                    foo: {
+                        bar: {
+                            baz: 42
+                        }
+                    }
+                };
+
+                corkDeepPath.del(obj, 'foo.bar');
+
+                expect(obj.foo.bar).toBe(undefined);
+            }));
         });
     });
 });
