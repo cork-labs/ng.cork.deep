@@ -1,5 +1,5 @@
 /**
- * ng.cork.deep - v0.0.2 - 2015-04-02
+ * ng.cork.deep - v0.0.3 - 2015-04-03
  * https://github.com/cork-labs/ng.cork.deep
  *
  * Copyright (c) 2015 Cork Labs <http://cork-labs.org>
