@@ -3,6 +3,19 @@ describe('ng.cork.deep.extend', function () {
 
     beforeEach(module('ng.cork.deep.extend'));
 
+    describe('corkDeepExtendProvider', function () {
+
+        var corkDeepExtendProvider;
+        beforeEach(module(function (_corkDeepExtend_) {
+            corkDeepExtendProvider = _corkDeepExtend_;
+        }));
+
+        it('should be available at config time', inject(function (corkDeepExtend) {
+
+            expect(corkDeepExtend).toBe(corkDeepExtendProvider);
+        }));
+    });
+
     describe('corkDeepExtend', function () {
 
         describe('when the same object is provided as source and destination', function () {

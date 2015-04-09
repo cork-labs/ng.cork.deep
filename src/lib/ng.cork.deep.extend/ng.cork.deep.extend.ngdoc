@@ -20,9 +20,11 @@ angular.module('app', ['ng.cork.deep.extend']);
 **NOTE:** this is a partial module. Use `ng.cork.deep` instead to include the entire library.
 
 
-## Service Fn: [corkDeepExtend](#/api/ng.cork.deep.extend.corkDeepExtend)
+## Value: [corkDeepExtend](#/api/ng.cork.deep.extend.corkDeepExtend)
 
 > Extend one object with properties from another.
+
+**NOTE:** the function is provided as a value and is available to other providers and during config time.
 
 <pre>
 angular.module('app', ['ng.cork.deep.extend'])
