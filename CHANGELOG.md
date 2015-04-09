@@ -1,3 +1,11 @@
+<a name="v0.0.4"></a>
+### v0.0.4 (2015-04-09)
+
+
+#### Features
+
+* **extend:** make it availble as an AngularJS value ([5563927d](git@github.com:cork-labs/ng.cork.deep/commit/5563927d4011b7a83030fa3c5cebf5162665c899))
+
 <a name="v0.0.3"></a>
 ### v0.0.3 (2015-04-03)
 
