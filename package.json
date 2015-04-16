@@ -1,6 +1,6 @@
 {
   "name": "ng.cork.deep",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "AngularJS services to deep modify objects and a class with deep property get/set/delete.",
   "author": {
     "name": "Cork Labs",
